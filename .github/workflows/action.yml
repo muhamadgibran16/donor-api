@@ -46,5 +46,5 @@ jobs:
                     --region asia-southeast2 \
                     --platform managed \
                     --allow-unauthenticated \
-                    --port 5000 \
+                    --port 8080 \
                     --set-env-vars="DB_NAME=${{ secrets.DB_NAME }},DB_USERNAME=${{ secrets.DB_USERNAME }},DB_PASS=${{ secrets.DB_PASS }},DB_HOST=${{ secrets.DB_HOST }},REFRESH_TOKEN_SECRET_KEY=${{ secrets.REFRESH_TOKEN_SECRET_KEY }},ACCESS_TOKEN_SECRET_KEY=${{ secrets.ACCESS_TOKEN_SECRET_KEY }}, SERVER_MAIL_USERNAME=${{ secrets.SERVER_MAIL_USERNAME}}, SECRET_MAIL_PASSWORD=${{ secrets.SERVER_SECRET_PASSWORD}},"

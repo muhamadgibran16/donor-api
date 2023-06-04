@@ -12,7 +12,7 @@ const donorRouter = require('./donor-api/routers/index')
 app.use(cookieParser())
 app.use(cors({
   credentials: true,
-  origin: 'http://127.0.0.1:*'
+  origin: '*'
 }))
 app.use(morgan('tiny'))
 app.disable('x-powered-by') 
@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   res.send('Gokil Mantul Ngebug Njlimet Nyenyenye!')
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
   console.log(`Server Running on http://localhost:${PORT}`)
 })
