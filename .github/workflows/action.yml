@@ -27,12 +27,12 @@ jobs:
                   service_acoount_key: ${{ secrets.CREDENTIALS }}
 
             - name: Authorization
-              run: gcloud auth list
+              uses: google-github-actions/auth
 
             - name: Configure Docker Authorization
               run: gcloud auth configure-docker --quiet
 
-            - name: Checkout Source Code
+            - name: Checkout Repository
               uses: actions/checkout@v2
 
             - name: Build Docker Image
