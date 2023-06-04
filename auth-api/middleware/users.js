@@ -13,7 +13,7 @@ const multer = Multer({
 
 /** Configuration to Google Cloud Storage */ 
 const storage = new Storage({
-  keyFilename: process.env.CREDENTIALS,
+  keyFilename: process.env.GCP_CREDENTIALS,
   projectId: process.env.GCP_PROJECT_ID,
 })
 
