@@ -1,0 +1,50 @@
+# Android API Ci/CD pipelines
+
+name: DONOR API CI/CD pipelines
+
+on:
+    push:
+        branches: [master]
+
+jobs:
+    deploy:
+        name: Setup Gcloud Account
+        runs-on: ubuntu-latest
+        env:
+            IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.APPLICATION }}
+            DB_NAME: ${{ secrets.DB_NAME }}
+            DB_USERNAME: ${{ secrets.DB_USERNAME }}
+            DB_PASSWORD: ${{ secrets.DB_PASS }}
+            DB_HOSTNAME: ${{ secrets.DB_HOST }}
+            REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET_KEY }}
+            ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET_KEY }}
+        steps:
+            - name: Login
+              uses: google-github-actions/setup-gcloud@v0
+              with:
+                  project_id: ${{ secrets.GCP_PROJECT_ID }}
+                  service_account_email: ${{ secrets.GCP_EMAIL }}
+                  service_account_key: ${{ secrets.CREDENTIALS }}
+
+            - name: Configure Docker
+              run: gcloud auth configure-docker --quiet
+
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Build Docker image
+              run: |
+                  docker build -t $IMAGE_NAME .
+
+            - name: Push Docker Image
+              run: docker push $IMAGE_NAME
+
+            - name: Deploy Docker Image
+              run: |
+                  gcloud run deploy ${{ secrets.APPLICATION }} \
+                    --image $IMAGE_NAME \
+                    --region asia-southeast2 \
+                    --platform managed \
+                    --allow-unauthenticated \
+                    --port 5000 \
+                    --set-env-vars="DB_NAME=${{ secrets.DB_NAME }},DB_USERNAME=${{ secrets.DB_USERNAME }},DB_PASS=${{ secrets.DB_PASS }},DB_HOST=${{ secrets.DB_HOST }},REFRESH_TOKEN_SECRET_KEY=${{ secrets.REFRESH_TOKEN_SECRET_KEY }},ACCESS_TOKEN_SECRET_KEY=${{ secrets.ACCESS_TOKEN_SECRET_KEY }}, SERVER_MAIL_USERNAME=${{ secrets.SERVER_MAIL_USERNAME}}, SECRET_MAIL_PASSWORD=${{ secrets.SERVER_SECRET_PASSWORD}},"
