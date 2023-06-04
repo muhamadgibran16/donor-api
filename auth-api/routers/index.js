@@ -32,7 +32,7 @@ router.delete('/logout', authenticate.logout)
 /** Users */
 router.get('/users', verifyToken, users.getUsers)
 
-router.patch('/img-upload', verifyToken, processFiles, users.imgUpload)
+router.patch('/img-upload', processFiles, users.imgUpload)
 router.patch('/update-profile', verifyToken, processFiles, users.updateProfile)
 router.patch('/update-dialog', verifyToken, users.updateDialogFirst)
 
