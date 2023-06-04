@@ -26,6 +26,9 @@ jobs:
                   service_account_email: ${{ secrets.GCP_EMAIL }}
                   service_acoount_key: ${{ secrets.CREDENTIALS }}
 
+            - name: Authorization
+              run: gcloud auth list
+
             - name: Configure Docker Authorization
               run: gcloud auth configure-docker --quiet
 
