@@ -27,7 +27,7 @@ jobs:
                   service_acoount_key: ${{ secrets.CREDENTIALS }}
 
             - name: Authorization
-              uses: google-github-actions/auth
+              run: google-github-actions/auth
 
             - name: Configure Docker Authorization
               run: gcloud auth configure-docker --quiet
