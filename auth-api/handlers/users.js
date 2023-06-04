@@ -7,12 +7,12 @@ const {
 
 /** Configuration to Google Cloud Storage */ 
 const storage = new Storage({
-  keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-  projectId: 'project-test-388606',
+  keyFilename: process.env.CREDENTIALS,
+  projectId: process.env.GCP_PROJECT_ID,
 })
 
 /** Set up bucket name */ 
-const bucket = storage.bucket('project-test-388606.appspot.com')
+const bucket = storage.bucket('ember-donor')
 
 /** Upload Photo Profile */
 const imgUpload = async (req, res) => {

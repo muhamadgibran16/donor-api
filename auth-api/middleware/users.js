@@ -13,11 +13,11 @@ const multer = Multer({
 
 /** Configuration to Google Cloud Storage */ 
 const storage = new Storage({
-  keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-  projectId: 'project-test-388606',
+  keyFilename: process.env.CREDENTIALS,
+  projectId: process.env.GCP_PROJECT_ID,
 })
 
-const bucket = storage.bucket('project-test-388606.appspot.com')
+const bucket = storage.bucket('ember-donor')
 
 /** Processing file upload */
 const processFiles = util.promisify(multer)
