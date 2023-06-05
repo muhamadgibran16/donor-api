@@ -227,7 +227,7 @@ const generateOTP = async ({
       service: 'gmail',
       host: 'smtp.gmail.com',
       port: 587,
-      secure: false,
+      secure: true,
       requireTLS: true,
       auth: {
         user: process.env.SERVER_MAIL_USERNAME,
@@ -258,7 +258,7 @@ const generateOTP = async ({
       body: {
         name: name,
         intro: 'Selamat datang di Donor Go! Kami sangat senang Anda bergabung!',
-        outro: `Demi keamanan Anda, Silahkan masukan kode otp untuk memverifikasi akun anda ${otp}`,
+        outro: `Demi keamanan Anda, Silahkan masukan kode otp untuk memverifikasi akun anda <b>${otp}</b>`,
       },
     }
     const emailBody = mailGenerator.generate(sendMail)
@@ -418,7 +418,7 @@ const forgotPassword = async (req, res, next) => {
     service: 'gmail',
     host: 'smtp.gmail.com',
     port: 587,
-    secure: false,
+    secure: true,
     requireTLS: true,
     auth: {
       user: process.env.SERVER_MAIL_USERNAME,
@@ -469,7 +469,7 @@ const forgotPassword = async (req, res, next) => {
     )
     console.log('token => ', accessToken)
     await Users.update({
-      reset_token: accessToken,
+      refresh_token: accessToken,
     }, {
       where: {
         email: email,
@@ -480,7 +480,7 @@ const forgotPassword = async (req, res, next) => {
       body: {
         name: name,
         intro: 'Untuk memastikan ini adalah anda',
-        outro: `Silakan klik tautan berikut untuk mereset password Anda: <a href="https://project-test-388606.et.r.appspot.com/v1/reset-password/${accessToken}">https://project-test-388606.et.r.appspot.com/v1/reset-password/${accessToken}</a>`,
+        outro: `Silakan klik tautan berikut untuk mereset password Anda: <a href="https://donor-go-m6zxt5yvja-et.a.run.app/v1/reset-password/${accessToken}">https://donor-go-m6zxt5yvja-et.a.run.app/v1/reset-password/${accessToken}</a>`,
       },
     }
     const emailBody = mailGenerator.generate(sendMail)
