@@ -117,26 +117,19 @@ const login = async (req, res, next) => {
     const name = user.name
     const email = req.body.email
     const match = await bcrypt.compare(req.body.password, user.password)
+    if (!match) {
+      return res.status(401).json({
+        success: false,
+        message: 'Wrong Password!'
+      })
+    }
     if (!user.verified) {
-      if (!match) {
-        return res.status(401).json({
-          success: false,
-          message: 'Wrong Password!'
-        })
-      }
       return res.status(403).json({
         success: false,
         message: 'Email not verified!',
         payload: {
           uid: uid
         }
-      })
-    }
-
-    if (!match) {
-      return res.status(401).json({
-        success: false,
-        message: 'Wrong Password!'
       })
     }
 
