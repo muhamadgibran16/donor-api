@@ -19,7 +19,7 @@ jobs:
             SERVER_MAIL_USERNAME: ${{ secrets.SERVER_MAIL_USERNAME}}
             SECRET_MAIL_PASSWORD: ${{ secrets.SERVER_MAIL_PASSWORD}}
         steps:
-            - name: Login
+            - name: Login to Google Cloud
               uses: google-github-actions/setup-gcloud@v0
               with:
                   project_id: ${{ secrets.GCP_PROJECT_ID }}
