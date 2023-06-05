@@ -225,10 +225,10 @@ const generateOTP = async ({
   try {
     const mailConfig = {
       service: 'gmail',
-      host: 'smtp.gmail.com',
-      port: 587,
-      secure: true,
-      requireTLS: true,
+      // host: 'smtp.gmail.com',
+      // port: 587,
+      // secure: true,
+      // requireTLS: true,
       auth: {
         user: process.env.SERVER_MAIL_USERNAME,
         pass: process.env.SERVER_MAIL_PASSWORD,
@@ -416,10 +416,10 @@ const reSendOTP = async (req, res, next) => {
 const forgotPassword = async (req, res, next) => {
   const mailConfig = {
     service: 'gmail',
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: true,
-    requireTLS: true,
+    // host: 'smtp.gmail.com',
+    // port: 587,
+    // secure: true,
+    // requireTLS: true,
     auth: {
       user: process.env.SERVER_MAIL_USERNAME,
       pass: process.env.SERVER_MAIL_PASSWORD,
