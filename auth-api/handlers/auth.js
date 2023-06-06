@@ -14,6 +14,7 @@ const {
   validateRegister,
   validateNewPassword
 } = require('../../auth-api/utils/userValidation')
+require('dotenv').config()
 
 /** Register */
 const register = async (req, res, next) => {
@@ -227,7 +228,7 @@ const generateOTP = async ({
       service: 'gmail',
       host: 'smtp.gmail.com',
       port: 587,
-      secure: true,
+      secure: false,
       requireTLS: true,
       auth: {
         user: process.env.SERVER_MAIL_USERNAME,
@@ -418,7 +419,7 @@ const forgotPassword = async (req, res, next) => {
     service: 'gmail',
     host: 'smtp.gmail.com',
     port: 587,
-    secure: true,
+    secure: false,
     requireTLS: true,
     auth: {
       user: process.env.SERVER_MAIL_USERNAME,
