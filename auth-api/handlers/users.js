@@ -153,7 +153,7 @@ const getUsers = async (req, res, next) => {
         email: req.email
       }
     })
-    console.log("data => ", users)
+    // console.log("data => ", users)
     res.status(200).json({
       success: true,
       payload: users
