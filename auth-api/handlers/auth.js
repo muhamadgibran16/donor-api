@@ -232,7 +232,7 @@ const generateOTP = async ({
       requireTLS: true,
       auth: {
         user: process.env.SERVER_MAIL_USERNAME,
-        pass: process.env.SERVER_MAIL_PASSWORD,
+        pass: process.env.SECRET_MAIL_PASSWORD,
       },
     }
     const transporter = nodemailer.createTransport(mailConfig)
@@ -423,7 +423,7 @@ const forgotPassword = async (req, res, next) => {
     requireTLS: true,
     auth: {
       user: process.env.SERVER_MAIL_USERNAME,
-      pass: process.env.SERVER_MAIL_PASSWORD,
+      pass: process.env.SECRET_MAIL_PASSWORD,
     },
   }
   const transporter = nodemailer.createTransport(mailConfig)
