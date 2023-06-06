@@ -18,7 +18,6 @@ const authenticate = require('../handlers/auth')
 router.post('/register', authenticate.register)
 router.post('/authenticate', verifyUser, (req, res) => res.end())
 router.post('/login', authenticate.login)
-router.post('/generate-otp', authenticate.generateOTP)
 router.post('/verify-otp', authenticate.verifyOTP)
 router.post('/send-otp', authenticate.reSendOTP)
 

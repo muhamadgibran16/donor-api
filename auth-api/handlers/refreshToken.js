@@ -32,11 +32,11 @@ const refreshToken = async (req, res) => {
           message: 'Forbidden'
         })
       }
-      const idUser = user.id
+      const uid = user.uid
       const name = user.name
       const email = user.email
       const accessToken = jwt.sign({
-          idUser,
+          uid,
           name,
           email
         },

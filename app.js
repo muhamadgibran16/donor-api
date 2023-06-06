@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
   res.send('Gokil Mantul Ngebug Njlimet Nyenyenye!')
 })
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log(`Server Running on http://localhost:${PORT}`)
 })

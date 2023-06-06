@@ -80,9 +80,6 @@ const updateProfile = async (req, res, next) => {
       gender,
     } = req.body
 
-    const user = await Users.findOne({
-      uid: req.body.uid,
-    })
     // console.log('User => ', user)
     await Users.update({
       name: name,
@@ -93,7 +90,7 @@ const updateProfile = async (req, res, next) => {
       gender: gender,
     }, {
       where: {
-        uid: user.uid
+        uid: req.uid
       }
     })
     res.status(201).json({
@@ -118,17 +115,13 @@ const updateDialogFirst = async (req, res, next) => {
       last_donor,
     } = req.body
 
-    const user = await Users.findOne({
-      uid: req.body.uid,
-    })
-    // console.log('User => ', user)
     await Users.update({
       gol_darah: gol_darah,
       rhesus: rhesus,
       last_donor: last_donor
     }, {
       where: {
-        uid: user.uid
+        uid: req.uid
       }
     })
     res.status(201).json({
