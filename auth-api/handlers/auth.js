@@ -227,12 +227,9 @@ const generateOTP = async ({
     const mailConfig = {
       service: 'gmail',
       host: 'smtp.gmail.com',
-      port: 587,
-      secure: false,
-      requireTLS: true,
       auth: {
-        user: process.env.SERVER_MAIL_USERNAME,
-        pass: process.env.SECRET_MAIL_PASSWORD,
+        user: process.env.MAIL_USERNAME,
+        pass: process.env.MAIL_PASSWORD,
       },
     }
     const transporter = nodemailer.createTransport(mailConfig)
@@ -265,7 +262,7 @@ const generateOTP = async ({
     const emailBody = mailGenerator.generate(sendMail)
     console.log('otpCode => ', otp)
     const message = {
-      from: process.env.SERVER_MAIL_USERNAME,
+      from: process.env.MAIL_USERNAME,
       to: email,
       subject: 'Verifikasi OTP',
       html: emailBody,
@@ -418,12 +415,9 @@ const forgotPassword = async (req, res, next) => {
   const mailConfig = {
     service: 'gmail',
     host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    requireTLS: true,
     auth: {
-      user: process.env.SERVER_MAIL_USERNAME,
-      pass: process.env.SECRET_MAIL_PASSWORD,
+      user: process.env.MAIL_USERNAME,
+      pass: process.env.MAIL_PASSWORD,
     },
   }
   const transporter = nodemailer.createTransport(mailConfig)
@@ -486,7 +480,7 @@ const forgotPassword = async (req, res, next) => {
     }
     const emailBody = mailGenerator.generate(sendMail)
     const message = {
-      from: process.env.SERVER_MAIL_USERNAME,
+      from: process.env.MAIL_USERNAME,
       to: email,
       subject: 'Reset password',
       html: emailBody,
