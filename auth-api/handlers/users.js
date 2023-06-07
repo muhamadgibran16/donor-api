@@ -70,7 +70,7 @@ const imgUpload = async (req, res) => {
 
 /** Edit Profile */
 const updateProfile = async (req, res, next) => {
-  try {
+  try { 
     const {
       name,
       telp,
