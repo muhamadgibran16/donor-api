@@ -25,7 +25,7 @@ jobs:
       - name: Login to Google Cloud
         uses: google-github-actions/setup-gcloud@v0
         with:
-          project_id: ${{ secrets.PROJECT_ID }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_EMAIL }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
 
