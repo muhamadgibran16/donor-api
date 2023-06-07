@@ -1,12 +1,2 @@
 runtime: nodejs16
 service: backend
-
-env_variables:
-  DB_NAME: "db_donor"
-  DB_USERNAME: "root"
-  DB_HOST: "localhost"
-  DB_PASS: 
-  DB_DIALECT: "mysql"
-
-  ACCESS_TOKEN_SECRET_KEY: "KLVirg09u709ykjaibsf89y742083basKAD8Y6ilvi9T696KUYVKkyc8776lkugfyusdjff8y39482y43figwerufgtq938743qvfg7saldfg78698"
-  REFRESH_TOKEN_SECRET_KEY: "0986OIgouO87iffi7O886r0fyYTDYIdtiYYTD76rYKXCiy7R5Rci6I5ixytxD76E5sdgsUyAWEFO78t987tg78t8og87T8tOGO7RO8TOOWEGTOWE78Q34TT"

@@ -14,7 +14,7 @@ const users = require('../../auth-api/handlers/users')
 const authenticate = require('../handlers/auth')
 
 
-/** Authentificate */
+/** Authenticate */
 router.post('/register', authenticate.register)
 router.post('/authenticate', verifyUser, (req, res) => res.end())
 router.post('/login', authenticate.login)

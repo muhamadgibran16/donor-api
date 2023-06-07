@@ -36,5 +36,4 @@ router.get('/province/city/hospital/:id', location.getHospitalByIdCity)
 router.get('/province/city/hospital/location/:id', location.getHospitalLocationById)
 
 
-
 module.exports = router

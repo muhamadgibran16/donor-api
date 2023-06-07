@@ -1,5 +1,6 @@
 const {
-  Requests, Donor
+  Requests,
+  Donor
 } = require("../models/donorModel")
 
 /** Get Blood Requests History */
