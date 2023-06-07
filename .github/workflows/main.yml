@@ -1,4 +1,4 @@
-name: DONOR API
+name: DONOR API 
 
 on:
   push:
@@ -8,19 +8,18 @@ on:
 
 jobs:
   deploy:
-    name: Setup Google Cloud Account
+    name: Setup Gcloud Account
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ secrets.APPLICATION }}
       DB_NAME: ${{ secrets.DB_NAME }}
       DB_USERNAME: ${{ secrets.DB_USERNAME }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PASS: ${{ secrets.DB_PASS }}
       REFRESH_TOKEN_SECRET_KEY: ${{ secrets.REFRESH_TOKEN_SECRET_KEY }}
       ACCESS_TOKEN_SECRET_KEY: ${{ secrets.ACCESS_TOKEN_SECRET_KEY }}
-      MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
-      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
-      
+      MAIL_USERNAME: ${{ secrets.MAIL_USERNAME}}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD}}
     steps:
       - name: Login to Google Cloud
         uses: google-github-actions/setup-gcloud@v0
@@ -28,15 +27,16 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_email: ${{ secrets.GCP_EMAIL }}
           service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-
-      - name: Configure Docker Authorizations
+          
+      - name: Configure Docker Authorization
         run: gcloud auth configure-docker --quiet
 
       - name: Checkout Repository
-        run: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Build Docker Image
-        run: docker build -t $IMAGE_NAME .
+        run: |
+            docker build -t $IMAGE_NAME .
 
       - name: Push Docker Image to Container Registry
         run: docker push $IMAGE_NAME
@@ -49,4 +49,4 @@ jobs:
               --platform managed \
               --allow-unauthenticated \
               --port 8080 \
-              --set-env-vars= "DB_NAME = ${{ secrets.DB_NAME }}, DB_USERNAME = ${{ secrets.DB_USERNAME }}, DB_PASS = ${{ secrets.DB_PASS }}, DB_HOST = ${{ secrets.DB_HOST }}, REFRESH_TOKEN_SECRET_KEY = ${{ secrets.REFRESH_TOKEN_SECRET_KEY}}, ACCESS_TOKEN_SECRET_KEY = ${{ secrets.ACCESS_TOKEN_SECRET_KEY }}, MAIL_USERNAME = ${{ secrets.MAIL_USERNAME }}, MAIL_PASSWORD = ${{ secrets.MAIL_PASSWORD }},"
+              --set-env-vars="DB_NAME=${{ secrets.DB_NAME }}, DB_USERNAME=${{ secrets.DB_USERNAME }}, DB_PASS=${{ secrets.DB_PASS }}, DB_HOST=${{ secrets.DB_HOST }}, REFRESH_TOKEN_SECRET_KEY=${{ secrets.REFRESH_TOKEN_SECRET_KEY }}, ACCESS_TOKEN_SECRET_KEY=${{ secrets.ACCESS_TOKEN_SECRET_KEY }}, MAIL_USERNAME=${{ secrets.MAIL_USERNAME}}, MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD}},"

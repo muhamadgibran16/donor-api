@@ -80,7 +80,6 @@ const updateProfile = async (req, res, next) => {
       gender,
     } = req.body
 
-    // console.log('User => ', user)
     await Users.update({
       name: name,
       telp: telp,
