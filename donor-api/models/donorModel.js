@@ -85,13 +85,13 @@ const Requests = db.define('blood_request', {
   telp_keluarga: {
     type: DataTypes.STRING,
   },
+  createdBy: {
+    type: DataTypes.STRING,
+  },
   verified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
   },
-  createdBy: {
-    type: DataTypes.STRING,
-  }
 })
 
 /** Blood Types Table */

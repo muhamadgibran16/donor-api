@@ -58,11 +58,6 @@ const validateRequest = (data) => {
         allowEmpty: false
       }
     },
-    createdBy: {
-      presence: {
-        allowEmpty: true
-      }
-    },
   }
   return validate(data, constraint, {
     format: 'flat'
