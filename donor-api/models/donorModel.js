@@ -87,7 +87,6 @@ const Requests = db.define('blood_request', {
   },
   createdBy: {
     type: DataTypes.STRING,
-    defaultValue: true
   },
   verified: {
     type: DataTypes.BOOLEAN,
