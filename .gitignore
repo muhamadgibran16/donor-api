@@ -1,3 +1,7 @@
 node_modules
 
 .env
+
+doc.txt
+
+credentials.json

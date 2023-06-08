@@ -20,6 +20,7 @@ jobs:
       ACCESS_TOKEN_SECRET_KEY: ${{ secrets.ACCESS_TOKEN_SECRET_KEY }}
       MAIL_USERNAME: ${{ secrets.MAIL_USERNAME}}
       MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD}}
+      
     steps:
       - name: Login to Google Cloud
         uses: google-github-actions/setup-gcloud@v0

@@ -73,19 +73,27 @@ const updateProfile = async (req, res, next) => {
   try { 
     const {
       name,
+      email,
       telp,
       nik,
       alamat,
       ttl,
+      gol_darah,
+      rhesus,
+      last_donor,
       gender,
     } = req.body
 
     await Users.update({
       name: name,
+      email: email,
       telp: telp,
       nik: nik,
       alamat: alamat,
       ttl: ttl,
+      gol_darah: gol_darah,
+      rhesus: rhesus,
+      last_donor: last_donor,
       gender: gender,
     }, {
       where: {
