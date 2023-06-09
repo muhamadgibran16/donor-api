@@ -10,6 +10,9 @@ const {
 const list = require('../../donor-api/handlers/list')
 const location = require('../../donor-api/handlers/location')
 const history = require('../../donor-api/handlers/history')
+const {Pagination} = require('../../utils/pagination')
+
+router.use(Pagination)
 
 /** Users Request */
 router.post('/request', verifyToken, createBloodRequest)
@@ -20,12 +23,12 @@ router.get('/blood-history/:createdBy', history.getBloodRequestsHistory)
 router.get('/donor-history/:uid', history.getDonorRequestsHistory)
 
 /** List App */
-router.get('/list/all-request', list.getListAllRequest)
-router.get('/list/blood-request', list.getListBloodRequests)
-router.get('/list/detail-request/:id', list.getDetailRequestById)
-router.get('/list/all-stock', list.getAllStock)
-router.get('/list/stock/:id', list.getStockByBloodTypeId)
-router.get('/list/stock/type/:typeid/rhesus/:rhesusid', list.getStockByBloodTypeAndRhesus)
+router.get('/list/all-request', verifyToken, list.getListAllRequest)
+router.get('/list/blood-request', verifyToken, list.getListBloodRequests)
+router.get('/list/detail-request/:id', verifyToken, list.getDetailRequestById)
+router.get('/list/all-stock', verifyToken, list.getAllStock)
+router.get('/list/stock/:id', verifyToken, list.getStockByBloodTypeId)
+router.get('/list/stock/type/:typeid/rhesus/:rhesusid', verifyToken, list.getStockByBloodTypeAndRhesus)
 
 /** Location */
 router.get('/province', location.getProvince)

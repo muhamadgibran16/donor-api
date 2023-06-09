@@ -5,13 +5,13 @@ const {
   Users
 } = require('../../auth-api/models/userModel')
 
-/** Configuration to Google Cloud Storage */ 
+/** Configuration to Google Cloud Storage */
 const storage = new Storage({
   keyFilename: process.env.GCP_CREDENTIALS,
   projectId: process.env.GCP_PROJECT_ID,
 })
 
-/** Set up bucket name */ 
+/** Set up bucket name */
 const bucket = storage.bucket('ember-donor')
 
 /** Upload Photo Profile */
@@ -70,10 +70,8 @@ const imgUpload = async (req, res) => {
 
 /** Edit Profile */
 const updateProfile = async (req, res, next) => {
-  try { 
+  try {
     const {
-      name,
-      email,
       telp,
       nik,
       alamat,
@@ -85,8 +83,6 @@ const updateProfile = async (req, res, next) => {
     } = req.body
 
     await Users.update({
-      name: name,
-      email: email,
       telp: telp,
       nik: nik,
       alamat: alamat,
@@ -147,16 +143,16 @@ const updateDialogFirst = async (req, res, next) => {
 /** Get Users Data */
 const getUsers = async (req, res, next) => {
   try {
-    const users = await Users.findOne({
+    const users = await Users.findAll({
       attributes: ['uid', 'name', 'email', 'telp', 'nik', 'ttl', 'alamat', 'gol_darah', 'rhesus', 'gender', 'last_donor', 'photo'],
       where: {
         email: req.email
-      }
+      },
     })
-    // console.log("data => ", users)
+    console.log("data => ", users)
     res.status(200).json({
       success: true,
-      payload: users
+      payload: users,
     })
   } catch (err) {
     console.log(err)
@@ -167,9 +163,64 @@ const getUsers = async (req, res, next) => {
   }
 }
 
+/** Upload Photo KTP: Skenario terburuk jika gagal di model */
+const uploadKTP = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        message: 'Please upload a file!',
+      })
+    }
+    const folder = 'userprofile'
+    const filename = `${folder}/${req.file.originalname}`
+    const blob = bucket.file(filename)
+    const blobStream = blob.createWriteStream()
+
+    blobStream.on('error', (err) => {
+      res.status(500).json({
+        message: err.message,
+      })
+    })
+    const publicUrl = new URL(`https://storage.googleapis.com/${bucket.name}/${blob.name}`)
+    blobStream.on('finish', async () => {
+      await blob.makePublic()
+      try {
+        console.log('User => ', Users)
+        // await Users.update({
+        //   photo: publicUrl.toString()
+        // }, {
+        //   where: {
+        //     uid: req.uid
+        //   }
+        // })
+        res.status(200).json({
+          success: true,
+          message: 'Upload KTP successfully!',
+          image: filename,
+          url: publicUrl,
+        })
+      } catch (err) {
+        console.log(err)
+        res.status(500).json({
+          message: 'File uploaded successfully, but URL is not inserted into the database!',
+          image: filename,
+          url: publicUrl,
+        })
+      }
+    })
+    blobStream.end(req.file.buffer)
+  } catch (err) {
+    console.log(err)
+    res.status(500).send({
+      message: `Could not upload the file. ${err}`,
+    })
+  }
+}
+
 module.exports = {
   getUsers,
   imgUpload,
   updateDialogFirst,
   updateProfile,
+  uploadKTP,
 }

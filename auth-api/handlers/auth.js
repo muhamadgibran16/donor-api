@@ -489,9 +489,6 @@ const forgotPassword = async (req, res, next) => {
     return res.status(200).json({
       success: true,
       message: 'The password reset email has been sent!',
-      payload: {
-        email,
-      },
     })
   } catch (err) {
     console.log(err)

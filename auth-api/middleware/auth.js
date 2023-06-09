@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const {Users} = require('../../auth-api/models/userModel')
 
+
+/** Verify Token */
 const verifyToken = async (req, res, next) => {
   const header = req.headers['authorization']
   const token = header && header.split(' ')[1]
