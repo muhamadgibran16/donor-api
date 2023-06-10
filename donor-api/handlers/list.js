@@ -60,7 +60,7 @@ const getListAllRequest = async (req, res, next) => {
   }
 }
 
-/** Get Data Blood Request By ID */
+/** Get Data Blood Request*/
 const getListBloodRequests = async (req, res, next) => {
   try {
     const request = await db.query("SELECT req.id_request, req.nama_pasien, req.tipe_darah, req.rhesus, req.nama_rs, rs.alamat_rs FROM blood_requests AS req INNER JOIN hospitals AS rs on req.nama_rs = rs.nama_rs", {

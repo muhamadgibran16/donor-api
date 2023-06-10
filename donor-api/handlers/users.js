@@ -27,6 +27,7 @@ const createBloodRequest = async (req, res, next) => {
     deskripsi,
     nama_keluarga,
     telp_keluarga,
+    createdBy,
   } = req.body
 
   var err = validateRequest(req.body)
@@ -51,6 +52,7 @@ const createBloodRequest = async (req, res, next) => {
       deskripsi: deskripsi,
       nama_keluarga: nama_keluarga,
       telp_keluarga: telp_keluarga,
+      createdBy: createdBy,
       verified: false,
     })
     console.log(Requests)
