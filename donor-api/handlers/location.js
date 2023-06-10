@@ -8,7 +8,7 @@ const {
 const getProvince = async (req, res, next) => {
   try {
     const province = await Province.findAll({
-      attributes: ['provinsi']
+      attributes: ['id', 'provinsi']
     })
 
     if (province.length === 0) {
@@ -35,7 +35,7 @@ const getProvince = async (req, res, next) => {
 const getAllCity = async (req, res, next) => {
   try {
     const city = await City.findAll({
-      attributes: ['city']
+      attributes: ['id', 'id_prov', 'city']
     })
 
     if (city.length === 0) {
@@ -68,7 +68,7 @@ const getCityByIdProvince = async (req, res, next) => {
       foreignKey: 'id_prov',
     })
     const city = await City.findAll({
-      attributes: ['city'],
+      attributes: ['id', 'id_prov', 'city'],
       where: {
         id_prov: req.params.id
       }
@@ -97,7 +97,7 @@ const getCityByIdProvince = async (req, res, next) => {
 const getAllHospital = async (req, res, next) => {
   try {
     const hospital = await Hospital.findAll({
-      attributes: ['id_city', 'nama_rs', 'alamat_rs', 'telp_rs', 'koordinat', 'latitude', 'longitude']
+      attributes: ['id', 'id_city', 'nama_rs', 'alamat_rs', 'telp_rs', 'koordinat', 'latitude', 'longitude']
     })
 
     console.log('hospital => ', hospital)
@@ -135,7 +135,7 @@ const getHospitalByIdCity = async (req, res, next) => {
       //   model: City,
       //   attributes: ['id']
       // }],
-      attributes: ['id', 'nama_rs', 'alamat_rs', 'telp_rs', 'koordinat', 'latitude', 'longitude'],
+      attributes: ['id', 'id_city', 'nama_rs', 'alamat_rs', 'telp_rs', 'koordinat', 'latitude', 'longitude'],
       where: {
         id_city: req.params.id
       }
@@ -165,7 +165,7 @@ const getHospitalByIdCity = async (req, res, next) => {
 const getHospitalLocationById = async (req, res, next) => {
   try {
     const hospital = await Hospital.findAll({
-      attributes: ['nama_rs', 'alamat_rs', 'latitude', 'longitude'],
+      attributes: ['id', 'nama_rs', 'alamat_rs', 'latitude', 'longitude'],
       where: {
         id: req.params.id,
       }

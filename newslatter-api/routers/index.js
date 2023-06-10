@@ -5,6 +5,7 @@ const news = require('../../newslatter-api/handlers/news')
 const {
   verifyToken
 } = require('../../auth-api/middleware/auth')
+
 router.use(Pagination)
 
 /** News */
