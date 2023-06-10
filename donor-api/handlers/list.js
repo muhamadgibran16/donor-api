@@ -20,7 +20,7 @@ const getListAllRequest = async (req, res, next) => {
     const {
       count,
       rows: request
-    } = await Requests.findAll({
+    } = await Requests.findAndCountAll({
       attributes: ['id_request', 'nama_pasien', 'jml_kantong', 'tipe_darah', 'rhesus', 'gender', 'prov', 'kota', 'nama_rs', 'deskripsi', 'nama_keluarga', 'telp_keluarga', 'createdAt'],
       limit: perPage,
       offset: offset,
