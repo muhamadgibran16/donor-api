@@ -56,7 +56,7 @@ const Requests = db.define('blood_request', {
     type: DataTypes.STRING,
   },
   jml_kantong: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
   },
   tipe_darah: {
     type: DataTypes.STRING,
