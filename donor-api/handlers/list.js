@@ -10,9 +10,27 @@ const {
 /** Get All Data Blood Request  */
 const getListAllRequest = async (req, res, next) => {
   try {
-    const request = await Requests.findAll({
-      attributes: ['id_request', 'nama_pasien', 'jml_kantong', 'tipe_darah', 'rhesus', 'gender', 'prov', 'kota', 'nama_rs', 'deskripsi', 'nama_keluarga', 'telp_keluarga', 'createdAt']
+    const pagination = res.pagination
+    const {
+      page,
+      perPage,
+      offset
+    } = pagination
+
+    const {
+      count,
+      rows: request
+    } = await Requests.findAll({
+      attributes: ['id_request', 'nama_pasien', 'jml_kantong', 'tipe_darah', 'rhesus', 'gender', 'prov', 'kota', 'nama_rs', 'deskripsi', 'nama_keluarga', 'telp_keluarga', 'createdAt'],
+      limit: perPage,
+      offset: offset,
     })
+
+    const totalPages = Math.ceil(count / perPage)
+    pagination.hasNextPage = page < totalPages
+    pagination.hasPreviousPage = page > 1
+    pagination.nextPage = page + 1
+    pagination.previousPage = page - 1
 
     if (request.length === 0) {
       return res.status(404).json({
@@ -23,7 +41,15 @@ const getListAllRequest = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: 'Requests retrieved successfully!',
-      payload: request
+      payload: request,
+      pagination: {
+        page,
+        perPage,
+        totalItems: count,
+        totalPages,
+        previousLink: pagination.getPreviousLink(),
+        nextLink: pagination.getNextLink(),
+      },
     })
   } catch (err) {
     console.log(err)
