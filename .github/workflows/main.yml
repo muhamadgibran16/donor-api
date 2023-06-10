@@ -36,15 +36,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker Image
-        run: |
-            docker build -t $IMAGE_NAME .
+        run: docker build -t $IMAGE_NAME .
 
       - name: Push Docker Image to Container Registry
         run: docker push $IMAGE_NAME
 
       - name: Deploy Docker Image to Google Cloud Run
-        run: |
-            gcloud run deploy ${{ secrets.APPLICATION }} \
+        run: gcloud run deploy ${{ secrets.APPLICATION }} \
               --image $IMAGE_NAME \
               --region asia-southeast2 \
               --platform managed \

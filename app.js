@@ -8,6 +8,7 @@ const morgan = require('morgan')
 const db = require('./config/db.js')
 const authRouter = require('./auth-api/routers/index')
 const donorRouter = require('./donor-api/routers/index')
+const newslatter = require('./newslatter-api/routers/index')
 
 app.use(cookieParser())
 app.use(cors({
@@ -19,13 +20,14 @@ app.disable('x-powered-by')
 app.use(express.json())
 app.use('/v1',authRouter)
 app.use('/v1', donorRouter)
+app.use('/v1', newslatter)
 
 app.get('/', (req, res) => {
   console.log('Response success')
   res.send('Gokil Mantul Ngebug Njlimet Nyenyenye!')
 })
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log(`Server Running on http://localhost:${PORT}`)
 })
