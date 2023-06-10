@@ -543,7 +543,7 @@ const resetPassword = async (req, res, next) => {
     })
     return res.status(200).json({
       success: true,
-      message: 'Password has been successfully updated',
+      message: 'Password has been successfully updated!',
     })
   } catch (err) {
     console.log(err)
