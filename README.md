@@ -109,3 +109,52 @@ Push the changes to the GitHub repository to trigger the workflow and initiate t
 
 
 Noted : [Backend Server Running on : https://github.com/muhamadgibran16/donor-api](https://github.com/muhamadgibran16/donor-api)
+
+
+
+## Deployment OCR API
+
+- Prepare a GitHub repository for the API project.
+
+- Configure the API deployment settings using a Dockerfile, including specifying the required dependencies, source code, and runtime environment:
+```# Use Node.js base image version 16
+FROM node:16-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the entire content from the local directory
+ADD . /app
+
+# Copy package.json and package-lock.json files
+COPY package*.json ./
+
+# Install Dependencies
+RUN npm install
+
+# Copy the application source code
+COPY . .
+
+# Specify the port
+EXPOSE 8080
+
+# Run the application
+CMD ["node", "app.js"]
+```
+- Create a repository secret for environment variables such as project ID, service account, hostname, and other sensitive data.
+   
+- Create a GitHub Actions workflow file named ```.github/workflows/main.yml``` to automate the deployment process.
+   
+Specify the necessary steps to build and deploy the API to Cloud Run and set up the required authentication and access permissions for the GitHub Actions workflow to interact with Cloud Run:
+- Define the workflow trigger condition ```on```.
+- Define the jobs to be executed ```jobs```.
+- Specify the operating system to be used ```runs-on: ubuntu-latest```
+- Set environment variables.
+- Perform Google Cloud login ```google-github-actions/setup-gcloud```
+- Configure Docker authorization ```gcloud auth configure-docker --quiet```
+- Checkout the Repository ```actions/checkout```
+- Build the Docker Image ```docker build -t $IMAGE_NAME .```
+- Push the image to the Container Registry ```docker push $IMAGE_NAME```
+- Deploy the Image to Cloud Run ```gcloud run deploy```
+
+Push the changes to the GitHub repository to trigger the workflow and initiate the deployment process.

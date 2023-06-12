@@ -116,12 +116,14 @@ const updateDialogFirst = async (req, res, next) => {
       gol_darah,
       rhesus,
       last_donor,
+      gender,
     } = req.body
 
     await Users.update({
       gol_darah: gol_darah,
       rhesus: rhesus,
-      last_donor: last_donor
+      last_donor: last_donor,
+      gender: gender
     }, {
       where: {
         uid: req.uid
