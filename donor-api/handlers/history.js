@@ -12,7 +12,7 @@ const getBloodRequestsHistory = async (req, res, next) => {
     const {count, rows: history} = await Requests.findAndCountAll({
       attributes: ['createdBy', 'id_request', 'nama_pasien', 'jml_kantong', 'tipe_darah', 'rhesus', 'gender', 'prov', 'kota', 'nama_rs', 'deskripsi', 'nama_keluarga', 'telp_keluarga', 'createdAt'],
       where: {
-        createdBy: req.params.createdBy
+        createdBy: req.uid
       },
       limit: perPage,
       offset: offset,
@@ -63,7 +63,7 @@ const getDonorRequestsHistory = async (req, res, next) => {
     const {count, rows: history} = await Donor.findAndCountAll({
       attributes: ['uid', 'id_donor', 'nama_pendonor', 'alamat', 'telp', 'gol_darah', 'rhesus', 'last_donor', 'nama_rs', 'alamat_rs', 'nama_pasien'],
       where: {
-        uid: req.params.uid
+        uid: req.uid
       },
       limit: perPage,
       offset: offset,
