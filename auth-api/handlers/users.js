@@ -23,7 +23,7 @@ const imgUpload = async (req, res) => {
       })
     }
     const folder = 'userprofile'
-    const filename = `${folder}/${req.file.originalname}`
+    const filename = `${folder}/${req.uid}/${req.file.originalname}`
     const blob = bucket.file(filename)
     const blobStream = blob.createWriteStream()
 
