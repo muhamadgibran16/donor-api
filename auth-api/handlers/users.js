@@ -165,7 +165,7 @@ const getUsers = async (req, res, next) => {
   }
 }
 
-/** Upload Photo KTP: Skenario terburuk jika gagal di model */
+/** Upload Photo KTP: Skenario terburuk */
 const uploadKTP = async (req, res) => {
   try {
     if (!req.file) {

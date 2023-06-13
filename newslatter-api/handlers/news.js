@@ -42,7 +42,7 @@ const getNews = async (req, res, next) => {
     const pagination = res.pagination
     const { page, perPage, offset } = pagination
 
-    const {count, rows: news} = await News.findAndCountAll({
+    const { count, rows: news } = await News.findAndCountAll({
       attributes: ['news_id', 'title', 'url', 'urlImage', 'createdAt'],
       limit: perPage,
       offset: offset,
