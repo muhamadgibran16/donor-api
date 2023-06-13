@@ -22,4 +22,4 @@ const News = db.define('news', {
 })
 
 
-module.exports = {News}
+module.exports = { News }

@@ -52,6 +52,10 @@ const Users = db.define('users', {
   verified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
+  },
+  ktp: {
+    type: DataTypes.BOOLEAN,
+    defaultValue:false
   }
 })
 

@@ -1,13 +1,13 @@
 const {
   nanoid
 } = require('nanoid')
-const {News} = require('../../newslatter-api/models/news')
+const {Event} = require('../../newslatter-api/models/event')
 
 
-const createNews = async (req, res, next) => {
-  const str = 'news-'
+const createEvent = async (req, res, next) => {
+  const str = 'event-'
   const id = nanoid(10)
-  const news_id = str + id
+  const event_id = str + id
   const {
     title,
     url,
@@ -16,17 +16,17 @@ const createNews = async (req, res, next) => {
   } = req.body
 
   try {
-    await News.create({
-      news_id: news_id,
+    await Event.create({
+      event_id: event_id,
       title: title,
       url: url,
       urlImage: urlImage,
       publishedAt: publishedAt,
     })
-    console.log(News)
+    console.log(Event)
     res.status(200).json({
       success: true,
-      message: 'News added successfully!',
+      message: 'Event added successfully!',
     })
   } catch (err) {
     console.log(err)
@@ -37,13 +37,13 @@ const createNews = async (req, res, next) => {
   }
 }
 
-const getNews = async (req, res, next) => {
+const getEvent = async (req, res, next) => {
   try {
     const pagination = res.pagination
     const { page, perPage, offset } = pagination
 
-    const { count, rows: news } = await News.findAndCountAll({
-      attributes: ['news_id', 'title', 'url', 'urlImage', 'createdAt'],
+    const { count, rows: event } = await Event.findAndCountAll({
+      attributes: ['event_id', 'title', 'url', 'urlImage', 'createdAt'],
       limit: perPage,
       offset: offset,
     })
@@ -54,18 +54,18 @@ const getNews = async (req, res, next) => {
     pagination.nextPage = page + 1
     pagination.previousPage = page - 1
 
-    console.log('Nesnews => ', news)
-    if (news.length === 0) {
+    console.log('Nesevent => ', event)
+    if (event.length === 0) {
       return res.status(404).json({
         success: false,
-        message: 'News not found!'
+        message: 'Event not found!'
       })
     }
 
     res.status(200).json({
       success: true,
-      message: 'News retrieved successfully!',
-      payload: news,
+      message: 'Event retrieved successfully!',
+      payload: event,
       pagination: {
         page,
         perPage,
@@ -84,4 +84,4 @@ const getNews = async (req, res, next) => {
   }
 }
 
-module.exports = { createNews, getNews }
+module.exports = { createEvent, getEvent }

@@ -75,6 +75,7 @@ const createBloodDonor = async (req, res, next) => {
   const id = nanoid(10)
   const id_donor = str + id
   const {
+    uid,
     nama_pendonor,
     alamat,
     telp,
@@ -88,6 +89,7 @@ const createBloodDonor = async (req, res, next) => {
 
   try {
     await Donor.create({
+      uid: uid,
       id_donor: id_donor,
       nama_pendonor: nama_pendonor,
       alamat: alamat,

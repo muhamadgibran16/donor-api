@@ -19,8 +19,8 @@ router.post('/request', verifyToken, createBloodRequest)
 router.post('/donor', verifyToken, createBloodDonor)
 
 /** Users History */
-router.get('/blood-history/:createdBy', history.getBloodRequestsHistory)
-router.get('/donor-history/:uid', history.getDonorRequestsHistory)
+router.get('/blood-history', verifyToken, history.getBloodRequestsHistory)
+router.get('/donor-history', verifyToken, history.getDonorRequestsHistory)
 
 /** List App */
 router.get('/list/all-request', verifyToken, list.getListAllRequest)
