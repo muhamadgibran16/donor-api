@@ -146,7 +146,7 @@ const updateDialogFirst = async (req, res, next) => {
 const getUsers = async (req, res, next) => {
   try {
     const users = await Users.findAll({
-      attributes: ['uid', 'name', 'email', 'telp', 'nik', 'ttl', 'alamat', 'gol_darah', 'rhesus', 'gender', 'last_donor', 'photo'],
+      attributes: ['uid', 'name', 'email', 'telp', 'nik', 'ttl', 'alamat', 'gol_darah', 'rhesus', 'gender', 'last_donor', 'photo', 'verified', 'ktp'],
       where: {
         email: req.email
       },
