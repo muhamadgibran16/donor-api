@@ -7,7 +7,7 @@ const {
 
 /** Event Table */
 const Event = db.define('event', {
-  news_id: {
+  event_id: {
     type: DataTypes.STRING,
   },
   title: {

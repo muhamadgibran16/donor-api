@@ -1,7 +1,7 @@
 const {
   nanoid
 } = require('nanoid')
-const {Event} = require('../../newslatter-api/models/event')
+const { Event } = require('../../newslatter-api/models/event')
 
 
 const createEvent = async (req, res, next) => {
@@ -12,7 +12,6 @@ const createEvent = async (req, res, next) => {
     title,
     url,
     urlImage,
-    publishedAt,
   } = req.body
 
   try {
@@ -21,7 +20,6 @@ const createEvent = async (req, res, next) => {
       title: title,
       url: url,
       urlImage: urlImage,
-      publishedAt: publishedAt,
     })
     console.log(Event)
     res.status(200).json({
@@ -54,7 +52,7 @@ const getEvent = async (req, res, next) => {
     pagination.nextPage = page + 1
     pagination.previousPage = page - 1
 
-    console.log('Nesevent => ', event)
+    console.log('event => ', event)
     if (event.length === 0) {
       return res.status(404).json({
         success: false,

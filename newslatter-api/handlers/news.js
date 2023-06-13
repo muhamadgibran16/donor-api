@@ -12,7 +12,6 @@ const createNews = async (req, res, next) => {
     title,
     url,
     urlImage,
-    publishedAt,
   } = req.body
 
   try {
@@ -21,7 +20,6 @@ const createNews = async (req, res, next) => {
       title: title,
       url: url,
       urlImage: urlImage,
-      publishedAt: publishedAt,
     })
     console.log(News)
     res.status(200).json({

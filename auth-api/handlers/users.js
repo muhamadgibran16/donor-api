@@ -165,7 +165,7 @@ const getUsers = async (req, res, next) => {
   }
 }
 
-/** Upload Photo KTP: Skenario terburuk */
+/** Upload Photo KTP: Skenario terburuk jika ML failed di processing*/
 const uploadKTP = async (req, res) => {
   try {
     if (!req.file) {
@@ -174,7 +174,7 @@ const uploadKTP = async (req, res) => {
       })
     }
     const folder = 'userprofile'
-    const filename = `${folder}/${req.file.originalname}`
+    const filename = `${folder}/${req.uid}/${req.file.originalname}`
     const blob = bucket.file(filename)
     const blobStream = blob.createWriteStream()
 
@@ -183,32 +183,22 @@ const uploadKTP = async (req, res) => {
         message: err.message,
       })
     })
-    const publicUrl = new URL(`https://storage.googleapis.com/${bucket.name}/${blob.name}`)
+
     blobStream.on('finish', async () => {
-      await blob.makePublic()
-      try {
-        console.log('User => ', Users)
-        // await Users.update({
-        //   photo: publicUrl.toString()
-        // }, {
-        //   where: {
-        //     uid: req.uid
-        //   }
-        // })
-        res.status(200).json({
-          success: true,
-          message: 'Upload KTP successfully!',
-          image: filename,
-          url: publicUrl,
-        })
-      } catch (err) {
-        console.log(err)
-        res.status(500).json({
-          message: 'File uploaded successfully, but URL is not inserted into the database!',
-          image: filename,
-          url: publicUrl,
-        })
-      }
+      const expirationDate = new Date()
+      expirationDate.setFullYear(expirationDate.getFullYear() + 5)
+
+      const privateUrl = await blob.getSignedUrl({
+        action: 'read',
+        expires: expirationDate,
+      })
+
+      res.status(200).json({
+        success: true,
+        message: 'Upload KTP successfully!',
+        image: filename,
+        url: privateUrl[0],
+      })
     })
     blobStream.end(req.file.buffer)
   } catch (err) {
@@ -218,6 +208,7 @@ const uploadKTP = async (req, res) => {
     })
   }
 }
+
 
 module.exports = {
   getUsers,

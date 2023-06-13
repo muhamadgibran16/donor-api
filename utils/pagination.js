@@ -9,10 +9,10 @@ const Pagination = async (req, res, next) => {
   let size = parseInt(req.query.size) || 10
   let perPage = size
 
-  // if (page === 0) {
-  //   page = 0;
-  //   perPage = 1000;
-  // }
+  if (page === 0) {
+    page = 0;
+    perPage = 1000;
+  }
 
   const offset = (page - 1) * perPage
 
