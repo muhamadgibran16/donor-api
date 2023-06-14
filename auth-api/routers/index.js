@@ -12,6 +12,7 @@ const {
 } = require('../../auth-api/handlers/refreshToken')
 const users = require('../../auth-api/handlers/users')
 const authenticate = require('../handlers/auth')
+const { uploadKTP } = require('../handlers/backupml')
 
 
 /** Authenticate */
@@ -34,7 +35,7 @@ router.get('/users', verifyToken, users.getUsers)
 router.patch('/img-upload', verifyToken, processFiles, users.imgUpload)
 router.patch('/update-profile', verifyToken, processFiles, users.updateProfile)
 router.patch('/update-dialog', verifyToken, users.updateDialogFirst)
-router.patch('/upload-ktp', verifyToken, processFiles, users.uploadKTP)
+router.patch('/upload-ktp', verifyToken, processFiles, uploadKTP)
 
 
 module.exports = router
