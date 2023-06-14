@@ -23,12 +23,12 @@ router.get('/blood-history', verifyToken, history.getBloodRequestsHistory)
 router.get('/donor-history', verifyToken, history.getDonorRequestsHistory)
 
 /** List App */
-router.get('/list/all-request', verifyToken, list.getListAllRequest)
-router.get('/list/blood-request', verifyToken, list.getListBloodRequests)
-router.get('/list/detail-request/:id', verifyToken, list.getDetailRequestById)
-router.get('/list/all-stock', verifyToken, list.getAllStock)
-router.get('/list/stock/:id', verifyToken, list.getStockByBloodTypeId)
-router.get('/list/stock/type/:typeid/rhesus/:rhesusid', verifyToken, list.getStockByBloodTypeAndRhesus)
+router.get('/list/all-request', list.getListAllRequest)
+router.get('/list/blood-request', list.getListBloodRequests)
+router.get('/list/detail-request/:id', list.getDetailRequestById)
+router.get('/list/all-stock', list.getAllStock)
+router.get('/list/stock/:id', list.getStockByBloodTypeId)
+router.get('/list/stock/type/:typeid/rhesus/:rhesusid', list.getStockByBloodTypeAndRhesus)
 
 /** Location */
 router.get('/province', location.getProvince)
@@ -37,6 +37,5 @@ router.get('/province/city/:id', location.getCityByIdProvince)
 router.get('/hospital', location.getAllHospital)
 router.get('/province/city/hospital/:id', location.getHospitalByIdCity)
 router.get('/province/city/hospital/location/:id', location.getHospitalLocationById)
-
 
 module.exports = router
