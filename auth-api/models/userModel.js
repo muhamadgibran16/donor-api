@@ -29,7 +29,7 @@ const Users = db.define('users', {
     type: DataTypes.STRING,
   },
   ttl: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
   },
   gol_darah: {
     type: DataTypes.STRING,
