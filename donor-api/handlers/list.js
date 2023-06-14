@@ -93,7 +93,7 @@ const getDetailRequestById = async (req, res, next) => {
 /** Get All Data Blood Supply */
 const getAllStock = async (req, res, next) => {
   try {
-    const stock = await db.query("SELECT rs.nama_rs, rs.alamat_rs, tp.tipe_darah, rhesus.rhesus, stock.stock FROM stocks as stock INNER JOIN blood_types AS tp ON stock.id_darah = tp.id INNER JOIN hospitals AS rs ON stock.id_rs = rs.id INNER JOIN rhesus ON stock.id_rhesus = rhesus.id", {
+    const stock = await db.query("SELECT rs.nama_rs, rs.alamat_rs, tp.id_darah, tp.tipe_darah, rhesus.rhesus, stock.id_rhesus, stock.stock FROM stocks as stock INNER JOIN blood_types AS tp ON stock.id_darah = tp.id INNER JOIN hospitals AS rs ON stock.id_rs = rs.id INNER JOIN rhesus ON stock.id_rhesus = rhesus.id", {
       type: QueryTypes.SELECT
     })
     if (stock.length === 0) {
@@ -120,7 +120,7 @@ const getAllStock = async (req, res, next) => {
 const getStockByBloodTypeId = async (req, res, next) => {
   try {
     const id = req.params.id
-    const stock = await db.query(`SELECT rs.nama_rs, rs.alamat_rs, tp.tipe_darah, rhesus.rhesus, stock.stock FROM stocks as stock INNER JOIN blood_types AS tp ON stock.id_darah = tp.id INNER JOIN hospitals AS rs ON stock.id_rs = rs.id INNER JOIN rhesus ON stock.id_rhesus = rhesus.id WHERE tp.id = ${id}`, {
+    const stock = await db.query(`SELECT tp.id_darah rs.nama_rs, rs.alamat_rs, tp.tipe_darah, rhesus.rhesus, stock.stock FROM stocks as stock INNER JOIN blood_types AS tp ON stock.id_darah = tp.id INNER JOIN hospitals AS rs ON stock.id_rs = rs.id INNER JOIN rhesus ON stock.id_rhesus = rhesus.id WHERE tp.id = ${id}`, {
       type: QueryTypes.SELECT,
     })
     if (stock.length === 0) {
