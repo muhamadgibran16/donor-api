@@ -200,6 +200,33 @@ const filteringDataPatient = async (req, res, next) => {
   }
 }
 
+/** Get All Filtering Data Patient */
+const filteringAllDataPatient = async (req, res, next) => {
+  try {
+    const request = await db.query(`SELECT req.id_request, req.nama_pasien, req.jml_kantong, req.tipe_darah, req.rhesus, req.gender, req.prov, req.kota, req.nama_rs, rs.alamat_rs, rs.latitude, rs.longitude, req.deskripsi, nama_keluarga, req.telp_keluarga, req.createdAt FROM blood_requests as req INNER JOIN hospitals as rs ON req.nama_rs = rs.nama_rs'`, {
+      type: QueryTypes.SELECT
+    })
+    if (request.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'Detail requests not found!'
+      })
+    }
+    console.log('request => ', request)
+    res.status(200).json({
+      success: true,
+      message: 'Detail request retrieved successfully!',
+      payload: request
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    })
+  }
+}
+
 module.exports = {
   getListAllRequest,
   getListBloodRequests,
@@ -207,5 +234,6 @@ module.exports = {
   getAllStock,
   getStockByBloodTypeId,
   getStockByBloodTypeAndRhesus,
-  filteringDataPatient
+  filteringDataPatient,
+  filteringAllDataPatient,
 }

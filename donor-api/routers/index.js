@@ -31,6 +31,7 @@ router.get('/list/all-stock', verifyToken, list.getAllStock)
 router.get('/list/stock/:id', verifyToken, list.getStockByBloodTypeId)
 router.get('/list/stock/type/:typeid/rhesus/:rhesusid', verifyToken, list.getStockByBloodTypeAndRhesus)
 router.get('/list/filter-data/:nama_rs', verifyToken, list.filteringDataPatient)
+router.get('/list/filter-all-data', verifyToken, list.filteringAllDataPatient)
 
 
 /** Location */
