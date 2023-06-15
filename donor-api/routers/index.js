@@ -25,10 +25,13 @@ router.get('/donor-history', verifyToken, history.getDonorRequestsHistory)
 /** List App */
 router.get('/list/all-request', verifyToken, list.getListAllRequest)
 router.get('/list/blood-request', verifyToken, list.getListBloodRequests)
+router.get('/list/blood-request', verifyToken, list.getListBloodRequests)
 router.get('/list/detail-request/:id', verifyToken, list.getDetailRequestById)
 router.get('/list/all-stock', verifyToken, list.getAllStock)
 router.get('/list/stock/:id', verifyToken, list.getStockByBloodTypeId)
 router.get('/list/stock/type/:typeid/rhesus/:rhesusid', verifyToken, list.getStockByBloodTypeAndRhesus)
+router.get('/list/filter-data/:nama_rs', verifyToken, list.filteringDataPatient)
+
 
 /** Location */
 router.get('/province', location.getProvince)
